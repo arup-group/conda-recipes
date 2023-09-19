@@ -10,7 +10,7 @@ source:
   sha256: c7b4becb5f13aa82421b269e583bee4d14b56a2c490b334d44ec954cb480a289
 
 build:
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install --no-deps . -vv
   number: 0
 
 requirements:
@@ -18,13 +18,16 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - ninja
+    - vs2022_win-64  # [win]
   host:
     - python >=3.6
+    - requests
     - pip
     - expat
     - zlib
     - bzip2
     - boost-cpp
+    - boost
     - lz4-c
   run:
     - python >=3.6
@@ -33,6 +36,7 @@ requirements:
     - zlib
     - bzip2
     - boost
+    - boost-cpp
 
 test:
   imports:
