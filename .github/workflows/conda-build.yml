@@ -29,23 +29,20 @@ jobs:
       if: steps.changed-files.outputs.all_changed_files != ''
       run: |
         STR=""
-        echo ${{ steps.changed-files.outputs.all_changed_files }}
         for FILE in ${{ steps.changed-files.outputs.all_changed_files }}
         do
-          echo $FILE
           VERSION=$(grep -o 'version = \"[a-zA-Z0-9\.]*\"' $FILE/meta.yaml | cut -d \" -f 2)
           STR+="{\"dir\":\"$FILE\", \"version\":\"v$VERSION\"},"
-          echo $STR
         done
         MATRIX="{\"include\": [${STR%?}]}"
-        echo $MATRIX
         echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
 
 
   conda-build-noarch:
     needs: [find-out-changes]
     if: needs.find-out-changes.outputs.matrix != ''
-    strategy: ${{ fromJson(needs.find-out-changes.outputs.matrix) }}
+    strategy:
+      matrix: ${{ fromJson(needs.find-out-changes.outputs.matrix) }}
     uses: arup-group/actions-city-modelling-lab/.github/workflows/conda-build.yml@add-conda-build-args
     secrets:
       ANACONDA_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
