@@ -19,20 +19,22 @@ jobs:
       with:
         dir_names: true
         dir_names_max_depth: 1
-        json: true
+        json: false
         quotepath: false
+        files: "**/meta.yaml"
+        files_ignore: .github/**/*
 
     - name: 'Set output in the matrix format'
       id: set-output
       if: steps.changed-files.outputs.all_changed_files != ''
       run: |
-        str=$("")
-        for FILE ${{ steps.changed-files.outputs.all_changed_files }}
+        STR=""
+        for FILE in ${{ steps.changed-files.outputs.all_changed_files }}
         do
-          v=$(grep -o 'version = \"[a-zA-Z0-9\.]*\"' $FILE/meta.yaml | cut -d \" -f 2)
-          str += "{\"dir\":$FILE, \"version\":v$v},"
+          VERSION=$(grep -o 'version = \"[a-zA-Z0-9\.]*\"' $FILE/meta.yaml | cut -d \" -f 2)
+          STR+="{\"dir\":$FILE, \"version\":v$VERSION},"
         done
-        echo "::set-output name=matrix::{\"include\": [${str%?}]}"
+        echo "::set-output name=matrix::{\"include\": [${STR%?}]}"
 
 
   conda-build-noarch:
