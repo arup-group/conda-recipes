@@ -1,0 +1,48 @@
+name: Build Package
+
+on:
+  push:
+
+jobs:
+  find-out-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-output.outputs.matrix }}
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Get changed files
+      id: changed-files
+      uses: tj-actions/changed-files@v39
+      with:
+        dir_names: true
+        dir_names_max_depth: 1
+        json: true
+        quotepath: false
+
+    - name: 'Set output in the matrix format'
+      id: set-output
+      if: steps.changed-files.outputs.all_changed_files != ''
+      run: |
+        str=$("")
+        for FILE ${{ steps.changed-files.outputs.all_changed_files }}
+        do
+          v=$(grep -o 'version = \"[a-zA-Z0-9\.]*\"' $FILE/meta.yaml | cut -d \" -f 2)
+          str += "{\"dir\":$FILE, \"version\":v$v},"
+        done
+        echo "::set-output name=matrix::{\"include\": [${str%?}]}"
+
+
+  conda-build-noarch:
+    needs: [find-out-changes]
+    if: needs.find-out-changes.outputs.matrix != ''
+    strategy: ${{ fromJson(needs.find-out-changes.outputs.matrix) }}
+    uses: arup-group/actions-city-modelling-lab/.github/workflows/conda-build.yml@add-conda-build-args
+    secrets:
+      ANACONDA_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+    with:
+      package_name: ${{ matrix.dir }}
+      recipe_dir: ${{ matrix.dir }}
+      version: ${{ matrix.version }}
