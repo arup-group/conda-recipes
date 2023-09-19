@@ -19,8 +19,11 @@ requirements:
     - cmake
     - lz4-c
     - pip
+    - setuptools
   host:
     - python >=3.6
+    - pip
+    - setuptools
     - expat
     - zlib
     - bzip2
