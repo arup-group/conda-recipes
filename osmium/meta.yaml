@@ -17,10 +17,9 @@ requirements:
   build:
     - {{ compiler('cxx') }}
     - cmake
-    - ninja
-    - vs_win-64  # [win]
+    - vs2019_win-64  # [win]
   host:
-    - vs_win-64  # [win]
+    - vs2019_win-64  # [win]
     - python >=3.6
     - requests
     - pip
