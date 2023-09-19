@@ -15,12 +15,15 @@ build:
 
 requirements:
   build:
+    - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - cmake
-    - lz4-c
+    - python
+    - pip
+  host:
     - python >=3.6
     - pip
-    - setuptools
+    - lz4-c
   run:
     - python >=3.6
     - requests
