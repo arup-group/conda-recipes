@@ -18,9 +18,9 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - ninja
+  host:
     - python >=3.6
     - pip
-  host:
     - expat
     - zlib
     - bzip2

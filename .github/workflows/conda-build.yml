@@ -1,7 +1,12 @@
 name: Build Package
 
 on:
+  pull_request:
+    branches:
+      - main
   push:
+    branches:
+      - main
 
 jobs:
   find-out-changes:
@@ -37,7 +42,6 @@ jobs:
         MATRIX="{\"include\": [${STR%?}]}"
         echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
 
-
   conda-build-noarch:
     needs: [find-out-changes]
     if: needs.find-out-changes.outputs.matrix != ''
@@ -49,4 +53,16 @@ jobs:
     with:
       package_name: ${{ matrix.dir }}
       recipe_dir: ${{ matrix.dir }}
+      version: ${{ matrix.version }}
+
+  conda-upload:
+    needs: [find-out-changes, conda-build-noarch]
+    if: github.ref == 'refs/heads/main'
+    strategy:
+      matrix: ${{ fromJson(needs.find-out-changes.outputs.matrix) }}
+    uses: arup-group/actions-city-modelling-lab/.github/workflows/conda-upload.yml@add-conda-build-args
+    secrets:
+      ANACONDA_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+    with:
+      package_name: ${{ matrix.dir }}
       version: ${{ matrix.version }}
