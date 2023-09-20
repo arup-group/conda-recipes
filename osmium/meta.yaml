@@ -18,7 +18,7 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
   host:
-    - python >=3.9
+    - python
     - requests
     - pip
     - expat
@@ -28,13 +28,13 @@ requirements:
     - boost
     - lz4-c
   run:
-    - python >=3.9
+    - python
     - requests
-    - expat
     - zlib
-    - bzip2
     - boost
     - boost-cpp
+    - expat
+    - bzip2
 
 test:
   imports:
