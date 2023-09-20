@@ -598,6 +598,7 @@ numpy:
   - 1.22
   - 1.22
   - 1.22
+  - 1.22
 occt:
   - 7.7.2
 openblas:
@@ -668,6 +669,7 @@ python:
   - 3.11.* *_cpython
 python_impl:
   # part of a zip_keys: python, python_impl, numpy
+  - cpython
   - cpython
   - cpython
   - cpython
