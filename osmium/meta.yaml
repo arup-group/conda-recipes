@@ -11,14 +11,14 @@ source:
 
 build:
   script: {{ PYTHON }} -m pip install --no-deps . -vv
-  number: 1
+  number: 2
 
 requirements:
   build:
     - {{ compiler('cxx') }}
     - cmake
   host:
-    - python >=3.6
+    - python >=3.9
     - requests
     - pip
     - expat
@@ -28,7 +28,7 @@ requirements:
     - boost
     - lz4-c
   run:
-    - python >=3.6
+    - python >=3.9
     - requests
     - expat
     - zlib
