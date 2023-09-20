@@ -1,0 +1,44 @@
+{% set name = "s2sphere" %}
+{% set version = "0.5.1" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 244f1e9ecdaf9d881bb8d721b81acdbd5296b380e0ad29dc0f1455d562c5b559
+
+build:
+  noarch: python
+  script: {{ PYTHON }} -m pip install --no-deps . -vv
+  number: 0
+
+requirements:
+  host:
+    - python >=3.6
+    - pip
+  run:
+    - python >=3.6
+    - activitysim >= 0.9.9.1
+    - numpy >= 1.16.1
+    - pandas >= 1.1.0
+    - ortools >= 5.1.4045
+
+test:
+  imports:
+    - populationsim
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/ActivitySim/populationsim
+  summary: Population Synthesis
+  license: BSD
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - brynpickering
