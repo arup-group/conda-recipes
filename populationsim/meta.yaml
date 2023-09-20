@@ -23,7 +23,7 @@ requirements:
     - activitysim >=0.9.9.1
     - numpy >=1.16.1
     - pandas >=1.1.0
-    - ortools >=5.1.4045
+    - ortools-python >=5.1.4045
 
 test:
   imports:
