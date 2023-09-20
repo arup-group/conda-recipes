@@ -66,4 +66,3 @@ jobs:
     with:
       package_name: ${{ matrix.dir }}
       version: ${{ matrix.version }}
-      build_workflow: "conda-build.yml"
