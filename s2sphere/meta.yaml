@@ -6,13 +6,13 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/s2sphere-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: c2478c1ff7c601a59a7151a57b605435897514578fa6bdb8730721c182adbbaf
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install --no-deps . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
