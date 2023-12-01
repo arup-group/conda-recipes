@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<events version="1.0">
+	<event time="0.0" type="TransitDriverStarts" driverId="pt_veh_19555_bus_Bus" vehicleId="veh_19555_bus" transitLineId="10115" transitRouteId="10115_0" departureId="VJ89c93e838e7885745281f77fc1d6db8cda9a7364"  />
+	<event time="1.0" type="departure" person="pt_veh_19555_bus_Bus" link="5221366459817213507_5221366459817213507" legMode="pt" computationalRoutingMode="pt"  />
+	<event time="2.0" type="PersonEntersVehicle" person="pt_veh_19555_bus_Bus" vehicle="veh_19555_bus"  />
+</events>

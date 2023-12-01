@@ -1,0 +1,42 @@
+{% set name = "xml2" %}
+{% set version = "1.0.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  git_url: https://github.com/brynpickering/xml2.git
+
+build:
+  script: make xml2 2csv && mkdir -p $PREFIX/bin && cp "xml2" "2csv" $PREFIX/bin  # [not win]
+  script: make xml2 2csv && mkdir -p %PREFIX/Library/bin && copy "xml2" "2csv" %PREFIX/Library/bin  # [win]
+  number: 0
+
+requirements:
+  build:
+    - {{ compiler('cxx') }}
+    - make
+  host:
+    - libxml2
+  run:
+    - libxml2
+
+test:
+  files:
+    - sample.xml
+    - sample.csv
+  commands:
+    - xml2 < sample.xml | 2csv events/event @time @type @link @vehicle > output.csv
+    - diff output.csv sample.csv  # [not win]
+    - fc output.csv sample.csv  # [win]
+
+about:
+  home: https://github.com/byrnpickering/xml2
+  summary: XML to CSV scripts
+  license: GPLv2
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - brynpickering
