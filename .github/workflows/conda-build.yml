@@ -47,7 +47,6 @@ jobs:
     if: needs.find-out-changes.outputs.matrix != ''
     strategy:
       matrix: ${{ fromJson(needs.find-out-changes.outputs.matrix) }}
-      fail-fast: false
     uses: arup-group/actions-city-modelling-lab/.github/workflows/conda-build.yml@mamba-to-micromamba
     secrets:
       ANACONDA_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
