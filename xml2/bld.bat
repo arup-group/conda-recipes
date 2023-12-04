@@ -1,8 +1,8 @@
 set LIB=%LIBRARY_LIB%;.\lib;%LIB%
 set LIBPATH=%LIBRARY_LIB%;.\lib;%LIBPATH%
 set INCLUDE=%LIBRARY_INC%;%INCLUDE%
-set INC=xml2-config --cflags
 
-echo `xml2-config --cflags`
-make --trace `xml2-config --cflags` `xml2-config --libs` all
+FOR /F "tokens=*" %%g IN ('xml2-config --cflags') do (SET TMP_INCL=%%g)
+FOR /F "tokens=*" %%g IN ('xml2-config --libs') do (SET TMP_LIBS=%%g)
+make %TMP_INCL% %TMP_LIBS% all
 copy "xml2" "2csv" %LIBRARY_BIN%
