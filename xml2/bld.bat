@@ -1,8 +1,8 @@
-set LIB=%LIBRARY_LIB%;.\lib;%LIB%
-set LIBPATH=%LIBRARY_LIB%;.\lib;%LIBPATH%
-set INCLUDE=%LIBRARY_INC%;%INCLUDE%
+set INCLUDE=%LIBRARY_INC%;%LIBRARY_INC%\libxml2;%INCLUDE%
+set LIBRARY_INC=%LIBRARY_INC%\libxml2;%LIBRARY_INC%
 
-FOR /F "tokens=*" %%g IN ('xml2-config --cflags') do (SET TMP_INCL=%%g)
-FOR /F "tokens=*" %%g IN ('xml2-config --libs') do (SET TMP_LIBS=%%g)
-make %TMP_INCL% %TMP_LIBS% all
+echo %LIBRARY_INC%
+
+make -lxml2 "xml2"
+make -lxml2 "2csv"
 copy "xml2" "2csv" %LIBRARY_BIN%
