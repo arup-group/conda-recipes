@@ -10,7 +10,7 @@ source:
 
 build:
   script: make "xml2" "2csv" && mkdir -p $PREFIX/bin && cp "xml2" "2csv" $PREFIX/bin  # [not win]
-  script: make V=1 "xml2" && make "2csv" && mkdir -p %PREFIX%/Library/bin && copy "xml2" "2csv" %PREFIX%/Library/bin  # [win]
+  script: make VERBOSE=1 "xml2" && make "2csv" && mkdir -p %PREFIX%/Library/bin && copy "xml2" "2csv" %PREFIX%/Library/bin  # [win]
   number: 0
 
 requirements:
