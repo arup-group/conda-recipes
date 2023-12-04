@@ -10,12 +10,13 @@ source:
 
 build:
   script: make "xml2" "2csv" && mkdir -p $PREFIX/bin && cp "xml2" "2csv" $PREFIX/bin  # [not win]
-  script: copy %RECIPE_DIR%\unistd.h %SRC_DIR%; make "xml2" "2csv"; mkdir -p %PREFIX%/Library/bin; copy "xml2" "2csv" %PREFIX%/Library/bin  # [win]
+  script: make "xml2" "2csv"; mkdir -p %PREFIX%/Library/bin; copy "xml2" "2csv" %PREFIX%/Library/bin  # [win]
   number: 0
 
 requirements:
   build:
-    - {{ compiler('c') }}
+    - {{ compiler('c') }}  # [not win]
+    - {{ compiler('m2w64_c') }}  # [win]
     - make
   host:
     - libxml2
