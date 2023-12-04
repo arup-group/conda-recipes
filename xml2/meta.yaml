@@ -13,8 +13,7 @@ build:
 
 requirements:
   build:
-    - {{ compiler('c') }}  # [not win]
-    - {{ compiler('m2w64_c') }}  # [win]
+    - {{ compiler('c') }}
     - make
     - libxml2
   host:
