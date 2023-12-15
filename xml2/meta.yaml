@@ -9,6 +9,7 @@ source:
   git_url: https://github.com/mnhrdt/xml2.git
 
 build:
+  skip: true  # [win]
   script: make "xml2" "2csv" && mkdir -p $PREFIX/bin && cp "xml2" "2csv" $PREFIX/bin  # [not win]
   number: 0
 
