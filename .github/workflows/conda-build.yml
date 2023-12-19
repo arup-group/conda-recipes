@@ -47,7 +47,7 @@ jobs:
     if: needs.find-out-changes.outputs.matrix != ''
     strategy:
       matrix: ${{ fromJson(needs.find-out-changes.outputs.matrix) }}
-    uses: arup-group/actions-city-modelling-lab/.github/workflows/conda-build.yml@add-conda-build-args
+    uses: arup-group/actions-city-modelling-lab/.github/workflows/conda-build.yml@skip-skipped
     secrets:
       ANACONDA_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
     with:
@@ -60,7 +60,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     strategy:
       matrix: ${{ fromJson(needs.find-out-changes.outputs.matrix) }}
-    uses: arup-group/actions-city-modelling-lab/.github/workflows/conda-upload.yml@add-conda-build-args
+    uses: arup-group/actions-city-modelling-lab/.github/workflows/conda-upload.yml@skip-skipped
     secrets:
       ANACONDA_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
     with:
